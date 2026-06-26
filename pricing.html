@@ -8,6 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ ЭТОЙ СТРАНИЦЫ */
+        .pricing-list {
+            list-style: none;
+            margin: 0 0 32px;
+            padding: 0;
+            text-align: left;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-list li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid rgba(108, 59, 158, 0.05);
+        }
+
+        .pricing-list li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-list li .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 
@@ -53,31 +88,13 @@
                         Первый месяц обслуживания — в подарок
                     </div>
 
-                    <ul style="list-style: none; margin: 0 0 32px; text-align: left; max-width: 420px; margin-left: auto; margin-right: auto; padding: 0;">
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: 1px solid rgba(108, 59, 158, 0.05);">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            Настройка бота под ваш салон
-                        </li>
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: 1px solid rgba(108, 59, 158, 0.05);">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            Добавление услуг и мастеров
-                        </li>
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: 1px solid rgba(108, 59, 158, 0.05);">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            Тестирование и обучение персонала
-                        </li>
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: 1px solid rgba(108, 59, 158, 0.05);">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            7 дней бесплатного тестового периода
-                        </li>
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: 1px solid rgba(108, 59, 158, 0.05);">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            Размещение на сервере <strong style="color: var(--secondary);">(1 месяц бесплатно)</strong>
-                        </li>
-                        <li style="padding: 10px 0; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-dark); border-bottom: none;">
-                            <span style="width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0;"></span>
-                            Техническая поддержка <strong style="color: var(--secondary);">(1 месяц бесплатно)</strong>
-                        </li>
+                    <ul class="pricing-list">
+                        <li><span class="dot"></span> Настройка бота под ваш салон</li>
+                        <li><span class="dot"></span> Добавление услуг и мастеров</li>
+                        <li><span class="dot"></span> Тестирование и обучение персонала</li>
+                        <li><span class="dot"></span> 7 дней бесплатного тестового периода</li>
+                        <li><span class="dot"></span> Размещение на сервере <strong style="color: var(--secondary);">(1 месяц бесплатно)</strong></li>
+                        <li><span class="dot"></span> Техническая поддержка <strong style="color: var(--secondary);">(1 месяц бесплатно)</strong></li>
                     </ul>
 
                     <a href="contact.html" class="btn" style="width: 100%; justify-content: center; display: inline-flex;">Заказать установку</a>
