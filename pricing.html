@@ -9,38 +9,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <style>
-        /* ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ ЭТОЙ СТРАНИЦЫ */
-        .pricing-list {
-            list-style: none;
-            margin: 0 0 32px;
-            padding: 0;
-            text-align: left;
-            max-width: 420px;
-            margin-left: auto;
-            margin-right: auto;
+        /* ПЕРЕОПРЕДЕЛЯЕМ СТИЛИ ДЛЯ ЭТОЙ СТРАНИЦЫ */
+        .pricing-card ul.pricing-list {
+            list-style: none !important;
+            margin: 0 0 32px !important;
+            padding: 0 !important;
+            text-align: left !important;
+            max-width: 420px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
         }
 
-        .pricing-list li {
-            padding: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            border-bottom: 1px solid rgba(108, 59, 158, 0.05);
+        .pricing-card ul.pricing-list li {
+            padding: 10px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            font-size: 0.95rem !important;
+            color: var(--text-dark) !important;
+            border-bottom: 1px solid rgba(108, 59, 158, 0.05) !important;
         }
 
-        .pricing-list li:last-child {
-            border-bottom: none;
+        .pricing-card ul.pricing-list li:last-child {
+            border-bottom: none !important;
         }
 
-        .pricing-list li .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: inline-block;
+        /* ОТКЛЮЧАЕМ ВСЕ ::before У ЭТИХ ЭЛЕМЕНТОВ */
+        .pricing-card ul.pricing-list li::before {
+            display: none !important;
+            content: none !important;
+        }
+
+        .pricing-card ul.pricing-list li .dot {
+            width: 6px !important;
+            height: 6px !important;
+            background: var(--primary) !important;
+            border-radius: 50% !important;
+            flex-shrink: 0 !important;
+            display: inline-block !important;
         }
     </style>
 </head>
