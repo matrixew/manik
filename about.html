@@ -8,6 +8,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <style>
+        .about-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .about-cta .btn {
+            font-size: 1.1rem;
+            padding: 18px 48px;
+            box-shadow: 0 8px 30px rgba(108, 59, 158, 0.25);
+        }
+
+        .about-cta .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(108, 59, 158, 0.35);
+        }
+
+        .about-cta p {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 480px) {
+            .about-cta .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 16px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -62,6 +94,12 @@
                         Мы настраиваем всё под ваш салон: услуги, мастеров, расписание.
                     </p>
                 </div>
+            </div>
+
+            <!-- НОВАЯ КНОПКА -->
+            <div class="about-cta fade-up">
+                <a href="contact.html" class="btn">📅 Записаться на консультацию</a>
+                <p>Ответим на все вопросы, покажем бота в работе</p>
             </div>
         </div>
     </section>
