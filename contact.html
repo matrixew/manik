@@ -105,8 +105,8 @@
         // ============================================
 
         // ⚠️ ВСТАВЬТЕ СВОИ ДАННЫЕ:
-        const TELEGRAM_BOT_TOKEN = '8859843095:AAFeUNOlTr9XsVT4Y7gQw3L3qxJbzVwS8y4';  // Токен бота для заявок
-        const TELEGRAM_CHAT_ID = '7792838501';                 // Ваш Telegram ID
+        const TELEGRAM_BOT_TOKEN = 'ВАШ_ТОКЕН_ОТ_BOTFATHER';  // Токен бота для заявок
+        const TELEGRAM_CHAT_ID = '123456789';                 // Ваш Telegram ID
 
         const form = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -178,7 +178,7 @@
                 formStatus.textContent = '✅ Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
                 form.reset();
 
-                // Дополнительно можно открыть Telegram для быстрого ответа
+                // ОТКРЫВАЕМ TELEGRAM ДЛЯ КЛИЕНТА (раскомментируйте, если нужно)
                 // window.open('https://t.me/BotProk', '_blank');
             } else {
                 formStatus.style.display = 'block';
