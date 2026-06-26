@@ -101,28 +101,22 @@
     <script src="script.js"></script>
     <script>
         // ============================================
-        // Telegram бот для заявок
+        // Telegram бот для заявок (ЧЕРЕЗ ПРОКСИ)
         // ============================================
 
         // ⚠️ ВСТАВЬТЕ СВОИ ДАННЫЕ:
-        const TELEGRAM_BOT_TOKEN = '8859843095:AAFeUNOlTr9XsVT4Y7gQw3L3qxJbzVwS8y4';  // Токен бота для заявок
-        const TELEGRAM_CHAT_ID = '7792838501';                 // Ваш Telegram ID
+        const TELEGRAM_BOT_TOKEN = '8859843095:AAFeUNOlTr9XsVT4Y7gQw3L3qxJbzVwS8y4';
+        const TELEGRAM_CHAT_ID = '7792838501';
 
         const form = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const formStatus = document.getElementById('formStatus');
 
-        // Функция отправки в Telegram
+        // Используем прокси для обхода CORS
         async function sendToTelegram(name, phone, message) {
-            const text = `📩 <b>Новая заявка с сайта!</b>
+            const text = `📩 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n📝 Сообщение: ${message || 'Не указано'}\n\n🕐 ${new Date().toLocaleString('ru-RU')}`;
 
-👤 <b>Имя:</b> ${name}
-📞 <b>Телефон:</b> ${phone}
-📝 <b>Сообщение:</b> ${message || 'Не указано'}
-
-🕐 <b>Время:</b> ${new Date().toLocaleString('ru-RU')}
-🌐 <b>Источник:</b> botprok.ru`;
-
+            // ✅ ИСПОЛЬЗУЕМ ПРОКСИ ДЛЯ ОБХОДА CORS
             const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
             try {
@@ -139,7 +133,14 @@
                 });
 
                 const data = await response.json();
-                return data.ok;
+                console.log('Ответ Telegram:', data);
+
+                if (!data.ok) {
+                    console.error('Ошибка Telegram:', data.description);
+                    return false;
+                }
+
+                return true;
             } catch (error) {
                 console.error('Ошибка отправки:', error);
                 return false;
@@ -154,7 +155,6 @@
             const phone = document.getElementById('phone').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            // Валидация
             if (!name || !phone) {
                 formStatus.style.display = 'block';
                 formStatus.style.background = '#fff0f0';
@@ -163,31 +163,25 @@
                 return;
             }
 
-            // Блокируем кнопку
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Отправка...';
             formStatus.style.display = 'none';
 
-            // Отправляем в Telegram
             const success = await sendToTelegram(name, phone, message);
 
             if (success) {
                 formStatus.style.display = 'block';
                 formStatus.style.background = '#e8f5e9';
                 formStatus.style.color = '#2e7d32';
-                formStatus.textContent = '✅ Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+                formStatus.textContent = '✅ Спасибо! Заявка отправлена. Мы свяжемся с вами.';
                 form.reset();
-
-                // ОТКРЫВАЕМ TELEGRAM ДЛЯ КЛИЕНТА (раскомментируйте, если нужно)
-                // window.open('https://t.me/BotProk', '_blank');
             } else {
                 formStatus.style.display = 'block';
                 formStatus.style.background = '#fff0f0';
                 formStatus.style.color = '#c0392b';
-                formStatus.textContent = '❌ Ошибка отправки. Пожалуйста, позвоните нам или напишите в Telegram.';
+                formStatus.textContent = '❌ Ошибка отправки. Позвоните нам или напишите в Telegram.';
             }
 
-            // Разблокируем кнопку
             submitBtn.disabled = false;
             submitBtn.textContent = 'Отправить заявку';
         });
