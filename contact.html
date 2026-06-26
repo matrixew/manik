@@ -53,15 +53,10 @@
                         <span class="value"><a href="https://t.me/BotProk" target="_blank">@BotProk</a></span>
                     </div>
 
-                    <div class="contact-item">
-                        <span class="label">Email</span>
-                        <span class="value"><a href="mailto:info@botprok.ru">info@botprok.ru</a></span>
-                    </div>
-
                     <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(108, 59, 158, 0.08);">
                         <p style="font-size: 0.9rem; margin: 0;">
                             <strong>Режим работы:</strong><br />
-                            Пн–Вс: 10:00 – 20:00
+                            Пн–Вс: 10:00 – 22:00
                         </p>
                     </div>
                 </div>
@@ -87,8 +82,10 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn">Отправить заявку</button>
+                            <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
                         </div>
+
+                        <div id="formStatus" style="display: none; padding: 12px; border-radius: 12px; text-align: center; font-weight: 500;"></div>
                     </form>
                 </div>
             </div>
@@ -103,10 +100,96 @@
 
     <script src="script.js"></script>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // ============================================
+        // Telegram бот для заявок
+        // ============================================
+
+        // ⚠️ ВСТАВЬТЕ СВОИ ДАННЫЕ:
+        const TELEGRAM_BOT_TOKEN = '8859843095:AAFeUNOlTr9XsVT4Y7gQw3L3qxJbzVwS8y4';  // Токен бота для заявок
+        const TELEGRAM_CHAT_ID = '7792838501';                 // Ваш Telegram ID
+
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formStatus = document.getElementById('formStatus');
+
+        // Функция отправки в Telegram
+        async function sendToTelegram(name, phone, message) {
+            const text = `📩 <b>Новая заявка с сайта!</b>
+
+👤 <b>Имя:</b> ${name}
+📞 <b>Телефон:</b> ${phone}
+📝 <b>Сообщение:</b> ${message || 'Не указано'}
+
+🕐 <b>Время:</b> ${new Date().toLocaleString('ru-RU')}
+🌐 <b>Источник:</b> botprok.ru`;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const data = await response.json();
+                return data.ok;
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                return false;
+            }
+        }
+
+        // Обработчик формы
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
-            this.reset();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Валидация
+            if (!name || !phone) {
+                formStatus.style.display = 'block';
+                formStatus.style.background = '#fff0f0';
+                formStatus.style.color = '#c0392b';
+                formStatus.textContent = '⚠️ Пожалуйста, заполните имя и телефон.';
+                return;
+            }
+
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Отправка...';
+            formStatus.style.display = 'none';
+
+            // Отправляем в Telegram
+            const success = await sendToTelegram(name, phone, message);
+
+            if (success) {
+                formStatus.style.display = 'block';
+                formStatus.style.background = '#e8f5e9';
+                formStatus.style.color = '#2e7d32';
+                formStatus.textContent = '✅ Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+                form.reset();
+
+                // Дополнительно можно открыть Telegram для быстрого ответа
+                // window.open('https://t.me/BotProk', '_blank');
+            } else {
+                formStatus.style.display = 'block';
+                formStatus.style.background = '#fff0f0';
+                formStatus.style.color = '#c0392b';
+                formStatus.textContent = '❌ Ошибка отправки. Пожалуйста, позвоните нам или напишите в Telegram.';
+            }
+
+            // Разблокируем кнопку
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить заявку';
         });
     </script>
 </body>
